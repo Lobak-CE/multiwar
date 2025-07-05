@@ -1,7 +1,7 @@
 import random
 import time
 from classdata import Team#, start_a_war  
-from console import setting, setting_enermydata, print_enermydata, action, enermyaction, print_enermyaction
+from console import setting, setting_enermydata, print_enermydata, action, print_enermyaction
 
 
 
@@ -24,7 +24,6 @@ if __name__ == "__main__": #模组化，程式多的时候可以定先后运作�
         print(f'\nYour action is {youraction[1]}\n')  
         time.sleep(1)
         print_enermyaction(enermyarray)
-        enermyaction(enermyarray)
 
         # if youraction[1] == 'Start a war' or enermyaction[1] == 'Start a war':
         #     start_a_war(yourteam, teamB)

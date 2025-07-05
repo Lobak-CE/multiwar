@@ -61,13 +61,13 @@ def action(act,cond=None) -> int:
         action = random.randint(1, 3)
     return actionmenu.actionfunction(action)
 
-def enermyaction(enermyarray):
-    for enermy in enermyarray:
-        enermyaction = action(enermy,"") 
-        return enermyaction[1]
+# def enermyaction(enermyarray):
+#     for enermy in enermyarray:
+#         enermyaction = action(enermy,"") 
+#     return enermyaction[1]
 
 def print_enermyaction(enermyarray):
-    enermyact = enermyaction(enermyarray)
     for enermy in enermyarray:
-        print(f'Enermy{enermy.id} action is {enermyact[1]}') 
+        enermyaction = action(enermy,'')
+        print(f'Enermy{enermy.id} action is {enermyaction[1]}') 
         time.sleep(0.5)
