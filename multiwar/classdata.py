@@ -48,14 +48,24 @@ class ActionMenu:
         else :
             actionname = '','Start a war'
             return actionname 
-         
+        
+def start_a_war(A,B):
+    winner = random.choices([A,B],weights=[A.military,B.military],k=1)   #weight是胜负的概率   #要用choices而不是choice，因为有概率计算
+    time.sleep(2)
+    if winner == [A]:   #一定要[A]而不是A，因为choice的是一个list
+        print(f'TeamID:{A.id} win the war!')
+        time.sleep(0.5)
+        print(f'TeamID:{B.id} lose the war!\n')
+        B.life -= 1
+        time.sleep(1)
+    else:
+        print(f'TeamID:{A.id} lose the war!')
+        time.sleep(0.5)
+        print(f'TeamID:{B.id} win the war!\n')
+        A.life -= 1
+        time.sleep(1)
+
+
 # def start_a_war(A, B):
-#     winner = random.choices([A,B],weights=[A.military,B.military],k=1)   #weight是胜负的概率   #要用choices而不是choice，因为有概率计算
-#     time.sleep(1)
-#     if winner == [A]:   #一定要[A]而不是A，因为choice的是一个list
-#         print('You win the war!\n')
-#         B.life -= 1
-#     else:
-#         print('You lose the war!\n')
-#         A.life -= 1
+#     
 

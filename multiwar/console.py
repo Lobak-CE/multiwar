@@ -1,4 +1,4 @@
-from classdata import Team, ActionMenu  
+from classdata import Team, ActionMenu, start_a_war  
 import random
 import time
 import sys
@@ -61,13 +61,40 @@ def action(act,cond=None) -> int:
         action = random.randint(1, 3)
     return actionmenu.actionfunction(action)
 
-# def enermyaction(enermyarray):
-#     for enermy in enermyarray:
-#         enermyaction = action(enermy,"") 
-#     return enermyaction[1]
 
 def print_enermyaction(enermyarray):
+    enermyactarray = []
     for enermy in enermyarray:
         enermyaction = action(enermy,'')
-        print(f'Enermy{enermy.id} action is {enermyaction[1]}') 
+        enermyactarray.append(enermyaction[1])
+        print(f'Enermy{enermy.id}s action is {enermyaction[1]}') 
         time.sleep(0.5)
+    for index, enermy in enumerate(enermyactarray):
+        if enermy == 'Start a war':
+            time.sleep(0.5)
+            print(f'\nEnermy{enermyarray[index].id} starts a war!')
+            filter_enermy = [i for i in enermyarray if i != enermyarray[index]]
+            start_a_war(enermyarray[index],random.choice(filter_enermy))
+            # enermy_choose_enermy(enermyarray)
+            time.sleep(0.5)
+            break
+
+def enermy_choose_enermy(enermyarray):
+    pass
+
+
+def choose_enermy(enermyarray,origin_enermyarray):
+    while True:
+        enermyid = check_input('\nSelect your enermy with id:', lambda x: 0<x<=origin_enermyarray)
+        for enermy in enermyarray:
+            if enermyid == enermy.id:
+                print(f'You choose enermy{enermy.id}')
+                return enermy
+            else:
+                print(f'Enermy{enermyid} is dead! Select another enermy')
+
+def check_enermylife(enermyarray):
+    for enermy in enermyarray:
+        if enermy.life == 0:
+            print(f'Enermy{enermy.id} is dead')
+            enermyarray.remove(enermy)
