@@ -1,7 +1,9 @@
-from classdata import Team, ActionMenu, start_a_war  
+from classdata import Team, ActionMenu, print_sleep, start_a_war 
 import random
 import time
 import sys
+        
+
 
 #判断玩家输入的指令是否符合要求
 def check_input(question:str,condition):
@@ -25,10 +27,8 @@ def check_input(question:str,condition):
 
 #设定敌人队伍的数量
 def setting_teamnum():
-    print('Welcome to the game, please set your team')
-    time.sleep(0.5)   
-    print('You can quit the game anytime by input 0')
-    time.sleep(0.5)
+    print_sleep('Welcome to the game, please set your team')  
+    print_sleep('You can quit the game anytime by input 0')
     number = check_input('How many teams do you want to play?\n', lambda x: x>=1)
     return number
 
@@ -48,8 +48,7 @@ def setting_enermydata(enermyarray):
 #设定农民和军队比例的逻辑
 def setting(x) -> tuple[int,int]:   
     if x == 'A':
-        print('You can have 8 farmers and 8 armies in total')
-        time.sleep(0.5) 
+        print_sleep('You can have 8 farmers and 8 armies in total')
         selectmode = check_input('Select your setting mode\n1:Self\n2:Random\n', lambda x: 0<x<3)
         time.sleep(0.5) 
         if selectmode == 1:
@@ -64,8 +63,7 @@ def setting(x) -> tuple[int,int]:
 #显示敌人的数据
 def print_enermydata(enermyarray):
     for enermy in (enermyarray):
-        print(f'Enermy data:{enermy}')
-        time.sleep(0.5)
+        print_sleep(f'Enermy data:{enermy}')
 
 
 #传达给classdata敌我行动的种类
@@ -85,13 +83,11 @@ def print_enermyaction(enermyarray,yourteamarray):
     for enermy in enermyarray:
         enermyaction = action(enermy,'')
         enermyactarray.append(enermyaction[1])
-        print(f'Enermy{enermy.id} action is {enermyaction[1]}') 
-        time.sleep(0.5)
+        print_sleep(f'Enermy{enermy.id} action is {enermyaction[1]}')
 
     for index, enermy in enumerate(enermyactarray):
         if enermy == 'Start a war':
-            time.sleep(0.5)
-            print(f'\nEnermy{enermyarray[index].id} starts a war!')
+            print_sleep(f'\nEnermy{enermyarray[index].id} starts a war!',2)
             filter_enermy = [i for i in enermyarray if i != enermyarray[index]]
             combinedlist = filter_enermy + yourteamarray
             start_a_war(enermyarray[index],random.choice(combinedlist))
@@ -113,7 +109,5 @@ def choose_enermy(enermyarray,origin_enermyarray):
 def check_enermylife(enermyarray):
     for enermy in enermyarray:
         if enermy.life <= 0:
-            time.sleep(0.5)
-            print(f'Enermy{enermy.id} is dead')
-            time.sleep(0.5)
+            print_sleep(f'Enermy{enermy.id} is dead',3)
             enermyarray.remove(enermy)

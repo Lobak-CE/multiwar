@@ -1,5 +1,5 @@
 import time
-from classdata import Team, start_a_war 
+from classdata import Team, print_sleep, start_a_war 
 from console import setting, setting_enermydata, print_enermydata, action, print_enermyaction, choose_enermy, check_enermylife
 
 
@@ -7,7 +7,6 @@ from console import setting, setting_enermydata, print_enermydata, action, print
 if __name__ == "__main__": #模组化，程式多的时候可以定先后运作次序
     #游戏介绍，设定敌人队伍数量
     enermyarray = []
-    setting_enermydata(enermyarray)
     origin_enermyarray = len(enermyarray)
 
 
@@ -18,29 +17,23 @@ if __name__ == "__main__": #模组化，程式多的时候可以定先后运作�
 
 
     #显示我和敌人的数据
-    time.sleep(0.5)
-    print(f'\nYour data:{yourteam}\n')
-    time.sleep(0.5)
+    print_sleep(f'\nYour data:{yourteam}\n',3)
     print_enermydata(enermyarray)  
 
     while True: 
         #选择你和敌人的行动，并执行
         youraction = action(yourteam)
-        time.sleep(0.5)
-        print(f'\nYour action is {youraction[1]}\n')  
-        time.sleep(0.5)
+        print_sleep(f'\nYour action is {youraction[1]}\n',3)
         print_enermyaction(enermyarray,yourteamarray)
 
 
         #你发动战争后进入的运算
         if youraction[1] == 'Start a war':
-            # print('You start a war!')
             start_a_war(yourteam, choose_enermy(enermyarray, origin_enermyarray))
 
 
         #显示你和敌人在行动后的最新数据
-        print(f'\nYour data:\n{yourteam}\n')
-        time.sleep(0.5)
+        print_sleep(f'\nYour data:\n{yourteam}\n')
         print_enermydata(enermyarray) 
 
 

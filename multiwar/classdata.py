@@ -1,6 +1,8 @@
 import random
 import time
 
+
+
 #每个队伍的参数
 class Team:  
     def __init__(self, id, life, money, military, farmer, army):   #self是变量，我也可以换成其他名字，但一般都用self
@@ -51,21 +53,32 @@ class ActionMenu:
             return actionname 
 
 
+def print_sleep(printtext, sequence=1, sleeptime=0.5):
+    if sequence == 1:
+        print(printtext)
+        time.sleep(sleeptime)
+    elif sequence == 2:
+        time.sleep(sleeptime)
+        print(printtext)
+    elif sequence == 3:
+        time.sleep(sleeptime)
+        print(printtext)
+        time.sleep(sleeptime)
+
+
 #发动战争的胜负计算
 def start_a_war(A,B):
     print(f'Team:{A.id} starts a war with Team:{B.id}')
     winner = random.choices([A,B],weights=[A.military,B.military],k=1)   #weight是胜负的概率   #要用choices而不是choice，因为有概率计算
     time.sleep(2)
     if winner == [A]:   #一定要[A]而不是A，因为choice的是一个list
-        print(f'\nTeam:{A.id} win the war!')
-        time.sleep(0.5)
-        print(f'Team:{B.id} lose the war!\n')
+        print_sleep(f'\nTeam:{A.id} win the war!')
+        print_sleep(f'Team:{B.id} lose the war!\n')
         B.life -= 1
-        time.sleep(0.5)
+        
     else:
-        print(f'\nTeam:{B.id} win the war!')
-        time.sleep(0.5)
-        print(f'Team:{A.id} lose the war!\n')
+        print_sleep(f'\nTeam:{B.id} win the war!')
+        print_sleep(f'Team:{A.id} lose the war!\n')
         A.life -= 1
-        time.sleep(0.5)     
+           
 
