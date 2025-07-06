@@ -1,46 +1,59 @@
-import random
 import time
 from classdata import Team, start_a_war 
 from console import setting, setting_enermydata, print_enermydata, action, print_enermyaction, choose_enermy, check_enermylife
 
 
 
-#run
 if __name__ == "__main__": #模组化，程式多的时候可以定先后运作次序
+    #游戏介绍，设定敌人队伍数量
     enermyarray = []
     setting_enermydata(enermyarray)
     origin_enermyarray = len(enermyarray)
 
-    farmer,army = setting('A')
-    yourteam = Team(0,100,100,100000,farmer,army,)
 
+    #设定我队的农民和军人比例
+    farmer,army = setting('A')
+    yourteam = Team(0,2,100,100,farmer,army,)
+    yourteamarray = [yourteam]
+
+
+    #显示我和敌人的数据
     time.sleep(0.5)
     print(f'\nYour data:{yourteam}\n')
-    time.sleep(1)
+    time.sleep(0.5)
     print_enermydata(enermyarray)  
 
-    while True:  #无限循环，直到break
+    while True: 
+        #选择你和敌人的行动，并执行
         youraction = action(yourteam)
-        time.sleep(1)
+        time.sleep(0.5)
         print(f'\nYour action is {youraction[1]}\n')  
-        time.sleep(1)
-        print_enermyaction(enermyarray)
+        time.sleep(0.5)
+        print_enermyaction(enermyarray,yourteamarray)
 
+
+        #你发动战争后进入的运算
         if youraction[1] == 'Start a war':
-            print('You start a war!')
+            # print('You start a war!')
             start_a_war(yourteam, choose_enermy(enermyarray, origin_enermyarray))
 
+
+        #显示你和敌人在行动后的最新数据
         print(f'\nYour data:\n{yourteam}\n')
-        time.sleep(1)
+        time.sleep(0.5)
         print_enermydata(enermyarray) 
 
+
+        #检查敌人是否死亡，死亡会被移除
         check_enermylife(enermyarray)
 
+
+        #判断输赢
         if yourteam.life <= 0:
-            print("You lose the game!")
+            print("\nYou lose the game!")
             break
         elif len(enermyarray) == 0:
-            print("You win the game!")
+            print("\nYou win the game!")
             break
 
         

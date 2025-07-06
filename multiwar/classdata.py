@@ -1,23 +1,23 @@
 import random
 import time
 
-# @dataclass
+#每个队伍的参数
 class Team:  
-    number = 0
     def __init__(self, id, life, money, military, farmer, army):   #self是变量，我也可以换成其他名字，但一般都用self
         self.id = id
-        self.life = life   #如果指定TeamA，就是Team.life = 2（这是self的意思）
+        self.life = life  
         self.money = money
         self.military = military
         self.farmer = farmer
         self.army = army
-        Team.number += 1
 
 
-    def __str__(self):   #当有人call整个Team，会return这个值
+    #当有人call整个Team，会return这个值
+    def __str__(self):   
         return f'id:{self.id}, life:{self.life}, money:{self.money}, military:{self.military}, farmer:{self.farmer}, army:{self.army}'
     
     
+    #赚钱和练兵行动执行，改变队伍的参数
     def proceed(self,index):
         if index==1:
             plus = (self.farmer/3) +1
@@ -38,6 +38,7 @@ class Team:
             return self.military, actionname
         
 
+#判断行动的编号，传达至proceed
 class ActionMenu:  
     def __init__(self,act):   #这里的self是ActionMenu的变量，act是Team的变量
         self.act=act
@@ -48,24 +49,23 @@ class ActionMenu:
         else :
             actionname = '','Start a war'
             return actionname 
-        
+
+
+#发动战争的胜负计算
 def start_a_war(A,B):
+    print(f'Team:{A.id} starts a war with Team:{B.id}')
     winner = random.choices([A,B],weights=[A.military,B.military],k=1)   #weight是胜负的概率   #要用choices而不是choice，因为有概率计算
     time.sleep(2)
     if winner == [A]:   #一定要[A]而不是A，因为choice的是一个list
-        print(f'TeamID:{A.id} win the war!')
+        print(f'\nTeam:{A.id} win the war!')
         time.sleep(0.5)
-        print(f'TeamID:{B.id} lose the war!\n')
+        print(f'Team:{B.id} lose the war!\n')
         B.life -= 1
-        time.sleep(1)
-    else:
-        print(f'TeamID:{A.id} lose the war!')
         time.sleep(0.5)
-        print(f'TeamID:{B.id} win the war!\n')
+    else:
+        print(f'\nTeam:{B.id} win the war!')
+        time.sleep(0.5)
+        print(f'Team:{A.id} lose the war!\n')
         A.life -= 1
-        time.sleep(1)
-
-
-# def start_a_war(A, B):
-#     
+        time.sleep(0.5)     
 
